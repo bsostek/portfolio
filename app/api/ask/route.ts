@@ -13,6 +13,8 @@ Name: Brian Sostek
 Date of Birth: November 13, 2000  
 Location: Madison, Wisconsin, United States  
 Current Role: Software Developer at Epic Systems (since August 2023)
+Born and raised in the Philadelphia area.
+Currently looking for new jobs in the Northeast or Western United States
 
 Summary:
 Brian Sostek is a software developer focused on integrating Generative AI into healthcare software. At Epic, he works on the Lumens endoscopy application, building features powered by Large Language Models (LLMs) to improve clinical efficiency and user experience. His work includes designing AI tools to streamline documentation, enhance physician workflows, and support hospitals with limited resources. Brian combines strong technical skills in full-stack development with hands-on collaboration through clinical site observations and interdisciplinary teamwork.
