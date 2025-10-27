@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <WeatherBackground weatherManual="clear">{children}</WeatherBackground>
+        <WeatherBackground>{children}</WeatherBackground>
       </body>
     </html>
   );
