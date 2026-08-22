@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Gallery from "../components/gallery";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -113,6 +114,8 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <Gallery />
     </main>
   );
 }

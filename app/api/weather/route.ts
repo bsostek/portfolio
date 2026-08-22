@@ -11,5 +11,11 @@ export async function GET(req: Request) {
   );
 
   const data = await res.json();
+
+  if (!res.ok) {
+    console.error("OpenWeatherMap request failed:", data);
+    return NextResponse.json(data, { status: res.status });
+  }
+
   return NextResponse.json(data);
 }

@@ -53,7 +53,12 @@ export default function WeatherBackground({
           `/api/weather?lat=${latitude}&lon=${longitude}` // if using your secure proxy route
         );
         const data = await res.json();
-        setWeather(data.weather?.[0]?.main || "Clear");
+        if (!res.ok || !data.weather?.[0]?.main) {
+          console.error("Failed to fetch weather, defaulting to Clear:", data);
+          setWeather("Clear");
+          return;
+        }
+        setWeather(data.weather[0].main);
       },
       () => console.warn("Location permission denied.")
     );
@@ -75,7 +80,7 @@ export default function WeatherBackground({
         return "/videos/thunderstorm.mp4";
       case "mist":
       case "fog":
-        return "/videos/mist.mp4";
+        return "/videos/clouds.mp4"; // no dedicated mist.mp4 asset
       default:
         return "/videos/clear.mp4";
     }
