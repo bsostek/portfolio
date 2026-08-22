@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 type Category = "professional" | "personal";
 
@@ -68,14 +69,15 @@ export default function Gallery() {
             <button
               key={image.src}
               onClick={() => setSelected(image)}
-              className="aspect-square overflow-hidden rounded-xl bg-white/10 backdrop-blur-sm
+              className="relative aspect-square overflow-hidden rounded-xl bg-white/10 backdrop-blur-sm
                          border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/40"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={image.src}
                 alt={image.caption || ""}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                fill
+                sizes="(max-width: 640px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 hover:scale-105"
               />
             </button>
           ))}
