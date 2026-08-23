@@ -202,7 +202,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (messages.some((m) => m.text.length > MAX_MESSAGE_LENGTH)) {
+  if (messages.some((m) => m.role === "user" && m.text.length > MAX_MESSAGE_LENGTH)) {
     return NextResponse.json(
       { error: `Messages must be under ${MAX_MESSAGE_LENGTH} characters.` },
       { status: 400 }
@@ -232,7 +232,11 @@ ${currentDate}
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents,
-    config: { systemInstruction, maxOutputTokens: 400 },
+    config: {
+      systemInstruction,
+      maxOutputTokens: 1024,
+      thinkingConfig: { thinkingBudget: 0 },
+    },
   });
 
   const answer = response.text || "I’m sorry, I couldn’t answer that.";
