@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import Gallery from "../components/gallery";
 
@@ -76,6 +77,13 @@ export default function Home() {
           and I’m always looking for new ways to combine creativity and
           technology.
         </p>
+
+        <Link
+          href="/resume"
+          className="inline-block px-5 py-2 border border-current rounded-lg hover:bg-white/10"
+        >
+          View my resume
+        </Link>
 
         {/* Ask form */}
         <form

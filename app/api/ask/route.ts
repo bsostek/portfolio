@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
+import { workHighlights } from "./work-highlights";
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({});
@@ -18,6 +19,9 @@ Location: Madison, Wisconsin, United States
 Current Role: Software Developer at Epic Systems (since August 2023)
 Born and raised in the Philadelphia area.
 Currently looking for new jobs in the Northeast or Western United States
+Email: sostekbrian@gmail.com
+GitHub: github.com/briansostek
+Resume: viewable and downloadable on this site at /resume
 
 Summary:
 Brian Sostek is a software developer focused on integrating Generative AI into healthcare software. At Epic, he works on the Lumens endoscopy application, building features powered by Large Language Models (LLMs) to improve clinical efficiency and user experience. His work includes designing AI tools to streamline documentation, enhance physician workflows, and support hospitals with limited resources. Brian combines strong technical skills in full-stack development with hands-on collaboration through clinical site observations and interdisciplinary teamwork.
@@ -30,10 +34,16 @@ Experience:
 
 - **Epic Systems** — Software Developer
   *Aug 2023 – Present, Verona, WI (On-site)*
-  - Lead development of AI-driven features using LLMs for the Lumens endoscopy platform.
+  - Lead developer on the product's generative AI features and lead on about 10 projects (185 bugs fixed, 80+ design docs), shipping in C#/.NET, TypeScript/React, Python, and Epic's M language; mentored a 2026 intern.
+  - Built an LLM agent suggesting ICD-10 codes from procedure reports as a 3-stage pipeline (generate, resolve against customer catalogs via tool calls, verify): 93.4% clinician acceptance, 138K extractions in 2 months.
+  - Built the first LLM feature end to end, extracting adenoma detection rate (ADR) from pathology reports: 100% accurate on 3,000+ pilot orders, on by default for all customers; called "probably the most impactful feature" by AdventHealth at UGM 2026.
+  - Migrated one-off AI features into a shared platform (multi-metric extraction framework, feature gating and default-on rollout, usage and feedback dashboard), so new AI features are now mostly configuration.
+  - Fixed over two dozen high-importance security findings from AI-assisted scanning (e.g., Mythos), with backports across releases, including critical fixes while on loan to another team.
+  - Designed and implemented drag-and-drop image annotation on an interactive anatomical diagram, coordinating changes to shared components used by two other products with sign-off from both teams.
+  - Built third-party consent-content import and behavior-based in-product guidance that boosted adoption.
+  - Represented Lumens at Digestive Disease Week (DDW) and ASGE's Global GI AI Summit, and on site at endoscopy units across the US and UK.
   - Conducted nationwide on-site visits to endoscopy units to gather workflow insights.
-  - Improved clinical documentation and billing processes for hospitals and physicians.
-  **Skills:** C#, TypeScript, React.js, Web Development, Software Infrastructure, LLM Integration
+  **Skills:** C#, .NET, TypeScript, React.js, M (MUMPS), Python, LLM Integration, AI Product Development
 
 - **University of Pittsburgh** — Undergraduate Teaching Assistant
   *Aug 2021 – Jan 2023*
@@ -100,7 +110,7 @@ o Weekend-long project that created a game to display the dangers of drinking fo
 hackathon
 
 Technical Skills:
-- **Languages:** C#, JavaScript, TypeScript, Java, C++, Python
+- **Languages:** C#, Java, Python, TypeScript, JavaScript, C++, SQL, M (MUMPS)
 - **Frameworks:** React.js, .NET, Node.js
 - **Databases:** MySQL, SQL Server
 - **AI Tools:** Large Language Models (LLMs), Generative AI, OpenAI API, Gemini
@@ -215,9 +225,14 @@ You are acting as Brian Sostek's personal assistant.
 Use the context below to answer questions about him clearly and conversationally.
 Answer in the first person, as your response will show as a speech bubble as if a direct quote from him.
 Remember earlier turns in this conversation and stay consistent with what you've already said.
+For detailed questions about my work at Epic (projects, technical decisions, how I work, lessons learned), draw on the work highlights below.
+If someone asks for my resume, point them to the "View my resume" page on this site (/resume).
+Metrics in the context are fine to share; don't invent metrics, customers, or details that aren't in the context. Don't discuss specific security vulnerabilities, unreleased or in-progress work, customer names, or other confidential Epic information; say that's something I can't share publicly and offer to talk about it in an interview instead.
 
 Context:
 ${resumeContext}
+
+${workHighlights}
 
 Current date:
 ${currentDate}
