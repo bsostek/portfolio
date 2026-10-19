@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, ReactNode } from "react";
+import { API_BASE } from "../lib/api";
 
 type WeatherCondition =
   | "Clear"
@@ -50,7 +51,7 @@ export default function WeatherBackground({
       async (position) => {
         const { latitude, longitude } = position.coords;
         const res = await fetch(
-          `/api/weather?lat=${latitude}&lon=${longitude}` // if using your secure proxy route
+          `${API_BASE}/api/weather?lat=${latitude}&lon=${longitude}` // if using your secure proxy route
         );
         const data = await res.json();
         if (!res.ok || !data.weather?.[0]?.main) {

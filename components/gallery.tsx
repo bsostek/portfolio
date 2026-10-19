@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { API_BASE } from "../lib/api";
 
 type Category = "professional" | "personal";
 
@@ -17,7 +18,7 @@ export default function Gallery() {
   const [selected, setSelected] = useState<GalleryImage | null>(null);
 
   useEffect(() => {
-    fetch("/api/gallery")
+    fetch(`${API_BASE}/api/gallery`)
       .then((res) => res.json())
       .then((data) => setImages(data.images ?? []))
       .catch(() => setImages([]));

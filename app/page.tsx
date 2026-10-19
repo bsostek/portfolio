@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import Gallery from "../components/gallery";
+import { API_BASE } from "../lib/api";
 
 interface ChatMessage {
   role: "user" | "model";
@@ -33,7 +34,7 @@ export default function Home() {
     setError("");
 
     try {
-      const res = await fetch("/api/ask", {
+      const res = await fetch(`${API_BASE}/api/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: nextMessages }),
