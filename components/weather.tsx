@@ -18,19 +18,22 @@ interface WeatherBackgroundProps {
   weatherManual?: WeatherCondition;
 }
 
-const getTextColor = (condition: string) => {
+// Dark overlay strength per background, measured so white text keeps roughly
+// 4.5:1 contrast even on the brightest frames behind the bio text.
+const getOverlayOpacity = (condition: string) => {
   switch (condition.toLowerCase()) {
-    case "snow":
-      return "#1a1a1a"; // dark gray / near-black for bright backgrounds
-    case "thunderstorm":
-      return "#f9f9f9"; // very light for dark storm backgrounds
     case "clouds":
+    case "mist":
+    case "fog":
+    case "snow":
+      return 0.45;
     case "rain":
-      return "#f0e68c"; // warm pale yellow to contrast with gray-blue
-    case "clear":
-      return "#ffffff"; // default white for sunny sky gradient
+    case "drizzle":
+      return 0.3;
+    case "thunderstorm":
+      return 0.1; // already dark
     default:
-      return "#ffffff"; // safe fallback
+      return 0.35; // clear
   }
 };
 
@@ -41,8 +44,10 @@ export default function WeatherBackground({
   const [weather, setWeather] = useState<WeatherCondition>("Clear");
 
   useEffect(() => {
-    if (weatherManual) {
-      setWeather(weatherManual);
+    // ?weather=clouds (etc.) previews a background without changing location.
+    const override = weatherManual ?? new URLSearchParams(window.location.search).get("weather");
+    if (override) {
+      setWeather(override);
       return;
     }
     if (!navigator.geolocation) return;
@@ -88,7 +93,7 @@ export default function WeatherBackground({
   };
 
   const videoSrc = getVideoSrc(weather);
-  const textColor = getTextColor(weather);
+  const overlayOpacity = getOverlayOpacity(weather);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
@@ -103,13 +108,15 @@ export default function WeatherBackground({
         playsInline
       />
 
-      {/* Glass window overlay */}
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-10" />
+      {/* Frosted overlay: blur softens the video, the tint keeps text readable */}
+      <div
+        className="absolute inset-0 backdrop-blur-sm z-10 transition-colors duration-700"
+        style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
+      />
 
       {/* Content */}
       <div
-        className="relative z-20 flex flex-col items-center justify-center min-h-screen"
-        style={{ color: textColor }}
+        className="relative z-20 flex flex-col items-center justify-center min-h-screen text-white"
       >
         {children ?? (
           <div className="text-3xl font-semibold drop-shadow-lg">
